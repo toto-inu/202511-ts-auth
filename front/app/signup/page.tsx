@@ -22,11 +22,11 @@ export default function SignupPage() {
   const [signupMutation, { loading }] = useMutation(SIGNUP, {
     onCompleted: (data) => {
       login(data.signup.accessToken, data.signup.user);
-      toast.success('Account created successfully!');
+      toast.success('アカウントを作成しました！');
       router.push('/dashboard');
     },
     onError: (error) => {
-      toast.error(error.message || 'Signup failed');
+      toast.error(error.message || '登録に失敗しました');
     },
   });
 
@@ -40,17 +40,17 @@ export default function SignupPage() {
     e.preventDefault();
 
     if (!email || !password || !confirmPassword) {
-      toast.error('Please fill in all fields');
+      toast.error('すべての項目を入力してください');
       return;
     }
 
     if (password !== confirmPassword) {
-      toast.error('Passwords do not match');
+      toast.error('パスワードが一致しません');
       return;
     }
 
     if (password.length < 6) {
-      toast.error('Password must be at least 6 characters');
+      toast.error('パスワードは6文字以上で入力してください');
       return;
     }
 
@@ -63,15 +63,15 @@ export default function SignupPage() {
     <div className="flex items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle className="text-2xl">Sign Up</CardTitle>
+          <CardTitle className="text-2xl">新規登録</CardTitle>
           <CardDescription>
-            Create a new account to get started
+            新しいアカウントを作成します
           </CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">メールアドレス</Label>
               <Input
                 id="email"
                 type="email"
@@ -82,22 +82,22 @@ export default function SignupPage() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">パスワード</Label>
               <Input
                 id="password"
                 type="password"
-                placeholder="Enter your password (min. 6 characters)"
+                placeholder="パスワードを入力（6文字以上）"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="confirmPassword">Confirm Password</Label>
+              <Label htmlFor="confirmPassword">パスワード（確認）</Label>
               <Input
                 id="confirmPassword"
                 type="password"
-                placeholder="Confirm your password"
+                placeholder="パスワードを再入力"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
@@ -106,12 +106,12 @@ export default function SignupPage() {
           </CardContent>
           <CardFooter className="flex flex-col space-y-4">
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? 'Creating account...' : 'Sign Up'}
+              {loading ? '登録中...' : '登録'}
             </Button>
             <p className="text-sm text-center text-muted-foreground">
-              Already have an account?{' '}
+              既にアカウントをお持ちの方は{' '}
               <Link href="/login" className="text-primary hover:underline">
-                Login
+                ログイン
               </Link>
             </p>
           </CardFooter>

@@ -21,11 +21,11 @@ export default function LoginPage() {
   const [loginMutation, { loading }] = useMutation(LOGIN, {
     onCompleted: (data) => {
       login(data.login.accessToken, data.login.user);
-      toast.success('Successfully logged in!');
+      toast.success('ログインしました！');
       router.push('/dashboard');
     },
     onError: (error) => {
-      toast.error(error.message || 'Login failed');
+      toast.error(error.message || 'ログインに失敗しました');
     },
   });
 
@@ -39,7 +39,7 @@ export default function LoginPage() {
     e.preventDefault();
 
     if (!email || !password) {
-      toast.error('Please fill in all fields');
+      toast.error('すべての項目を入力してください');
       return;
     }
 
@@ -52,15 +52,15 @@ export default function LoginPage() {
     <div className="flex items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle className="text-2xl">Login</CardTitle>
+          <CardTitle className="text-2xl">ログイン</CardTitle>
           <CardDescription>
-            Enter your credentials to access your account
+            アカウント情報を入力してください
           </CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">メールアドレス</Label>
               <Input
                 id="email"
                 type="email"
@@ -71,11 +71,11 @@ export default function LoginPage() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">パスワード</Label>
               <Input
                 id="password"
                 type="password"
-                placeholder="Enter your password"
+                placeholder="パスワードを入力"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -84,12 +84,12 @@ export default function LoginPage() {
           </CardContent>
           <CardFooter className="flex flex-col space-y-4">
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? 'Logging in...' : 'Login'}
+              {loading ? 'ログイン中...' : 'ログイン'}
             </Button>
             <p className="text-sm text-center text-muted-foreground">
-              Don't have an account?{' '}
+              アカウントをお持ちでない方は{' '}
               <Link href="/signup" className="text-primary hover:underline">
-                Sign up
+                新規登録
               </Link>
             </p>
           </CardFooter>

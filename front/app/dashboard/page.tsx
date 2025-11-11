@@ -49,29 +49,29 @@ export default function DashboardPage() {
         <div className="container mx-auto px-4 py-8">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h1 className="text-3xl font-bold">My Todos</h1>
+              <h1 className="text-3xl font-bold">マイTodo</h1>
               <p className="text-muted-foreground mt-1">
-                Manage your tasks and stay organized
+                タスクを管理して整理しましょう
               </p>
             </div>
             <Button onClick={() => setIsFormOpen(true)}>
               <Plus className="h-4 w-4 mr-2" />
-              New Todo
+              新規Todo
             </Button>
           </div>
 
           <div className="mb-6">
             <div className="flex items-center space-x-4">
-              <label className="text-sm font-medium">Filter by status:</label>
+              <label className="text-sm font-medium">ステータスで絞り込み:</label>
               <Select value={statusFilter} onValueChange={setStatusFilter}>
                 <SelectTrigger className="w-[180px]">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="ALL">All Todos</SelectItem>
-                  <SelectItem value={TodoStatus.PENDING}>Pending</SelectItem>
-                  <SelectItem value={TodoStatus.IN_PROGRESS}>In Progress</SelectItem>
-                  <SelectItem value={TodoStatus.COMPLETED}>Completed</SelectItem>
+                  <SelectItem value="ALL">すべて</SelectItem>
+                  <SelectItem value={TodoStatus.PENDING}>未着手</SelectItem>
+                  <SelectItem value={TodoStatus.IN_PROGRESS}>進行中</SelectItem>
+                  <SelectItem value={TodoStatus.COMPLETED}>完了</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -85,7 +85,7 @@ export default function DashboardPage() {
 
           {error && (
             <div className="text-center py-12">
-              <p className="text-destructive">Error loading todos: {error.message}</p>
+              <p className="text-destructive">Todoの読み込みエラー: {error.message}</p>
             </div>
           )}
 
@@ -93,8 +93,8 @@ export default function DashboardPage() {
             <div className="text-center py-12">
               <p className="text-muted-foreground">
                 {statusFilter === 'ALL'
-                  ? 'No todos yet. Create your first todo to get started!'
-                  : `No ${statusFilter.toLowerCase()} todos found.`}
+                  ? 'まだTodoがありません。最初のTodoを作成しましょう！'
+                  : `該当するTodoが見つかりません。`}
               </p>
             </div>
           )}

@@ -45,22 +45,22 @@ export function TodoForm({ isOpen, onClose, todo }: TodoFormProps) {
   const [createTodo, { loading: creating }] = useMutation(CREATE_TODO, {
     refetchQueries: [{ query: GET_TODOS }],
     onCompleted: () => {
-      toast.success('Todo created successfully!');
+      toast.success('Todoを作成しました！');
       onClose();
     },
     onError: (error) => {
-      toast.error(error.message || 'Failed to create todo');
+      toast.error(error.message || 'Todoの作成に失敗しました');
     },
   });
 
   const [updateTodo, { loading: updating }] = useMutation(UPDATE_TODO, {
     refetchQueries: [{ query: GET_TODOS }],
     onCompleted: () => {
-      toast.success('Todo updated successfully!');
+      toast.success('Todoを更新しました！');
       onClose();
     },
     onError: (error) => {
-      toast.error(error.message || 'Failed to update todo');
+      toast.error(error.message || 'Todoの更新に失敗しました');
     },
   });
 
@@ -68,7 +68,7 @@ export function TodoForm({ isOpen, onClose, todo }: TodoFormProps) {
     e.preventDefault();
 
     if (!title.trim()) {
-      toast.error('Please enter a title');
+      toast.error('タイトルを入力してください');
       return;
     }
 
@@ -92,41 +92,41 @@ export function TodoForm({ isOpen, onClose, todo }: TodoFormProps) {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{todo ? 'Edit Todo' : 'Create New Todo'}</DialogTitle>
+          <DialogTitle>{todo ? 'Todoを編集' : '新しいTodoを作成'}</DialogTitle>
           <DialogDescription>
-            {todo ? 'Update your todo details' : 'Add a new todo to your list'}
+            {todo ? 'Todoの詳細を更新します' : '新しいTodoをリストに追加します'}
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
           <div className="space-y-4 py-4">
             <div className="space-y-2">
-              <Label htmlFor="title">Title</Label>
+              <Label htmlFor="title">タイトル</Label>
               <Input
                 id="title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="Enter todo title"
+                placeholder="Todoのタイトルを入力"
                 required
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="description">Description</Label>
+              <Label htmlFor="description">説明</Label>
               <Textarea
                 id="description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                placeholder="Enter description (optional)"
+                placeholder="説明を入力（任意）"
                 rows={3}
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="category">Category</Label>
+              <Label htmlFor="category">カテゴリ</Label>
               <Select value={categoryId} onValueChange={setCategoryId}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select a category (optional)" />
+                  <SelectValue placeholder="カテゴリを選択（任意）" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="none">No Category</SelectItem>
+                  <SelectItem value="none">カテゴリなし</SelectItem>
                   {categoriesData?.categories.map((category: any) => (
                     <SelectItem key={category.id} value={category.id.toString()}>
                       {category.name}
@@ -137,15 +137,15 @@ export function TodoForm({ isOpen, onClose, todo }: TodoFormProps) {
             </div>
             {todo && (
               <div className="space-y-2">
-                <Label htmlFor="status">Status</Label>
+                <Label htmlFor="status">ステータス</Label>
                 <Select value={status} onValueChange={(value) => setStatus(value as TodoStatus)}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value={TodoStatus.PENDING}>Pending</SelectItem>
-                    <SelectItem value={TodoStatus.IN_PROGRESS}>In Progress</SelectItem>
-                    <SelectItem value={TodoStatus.COMPLETED}>Completed</SelectItem>
+                    <SelectItem value={TodoStatus.PENDING}>未着手</SelectItem>
+                    <SelectItem value={TodoStatus.IN_PROGRESS}>進行中</SelectItem>
+                    <SelectItem value={TodoStatus.COMPLETED}>完了</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -153,10 +153,10 @@ export function TodoForm({ isOpen, onClose, todo }: TodoFormProps) {
           </div>
           <DialogFooter>
             <Button type="button" variant="outline" onClick={onClose}>
-              Cancel
+              キャンセル
             </Button>
             <Button type="submit" disabled={creating || updating}>
-              {creating || updating ? 'Saving...' : todo ? 'Update' : 'Create'}
+              {creating || updating ? '保存中...' : todo ? '更新' : '作成'}
             </Button>
           </DialogFooter>
         </form>

@@ -25,10 +25,10 @@ export default function CategoriesPage() {
   const [removeCategory] = useMutation(REMOVE_CATEGORY, {
     refetchQueries: [{ query: GET_CATEGORIES }],
     onCompleted: () => {
-      toast.success('Category deleted successfully!');
+      toast.success('カテゴリを削除しました！');
     },
     onError: (error) => {
-      toast.error(error.message || 'Failed to delete category');
+      toast.error(error.message || 'カテゴリの削除に失敗しました');
     },
   });
 
@@ -38,7 +38,7 @@ export default function CategoriesPage() {
   };
 
   const handleDelete = (id: number) => {
-    if (confirm('Are you sure you want to delete this category? This may affect existing todos.')) {
+    if (confirm('このカテゴリを削除してもよろしいですか？既存のTodoに影響する可能性があります。')) {
       removeCategory({ variables: { id } });
     }
   };
@@ -55,22 +55,22 @@ export default function CategoriesPage() {
         <div className="container mx-auto px-4 py-8">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h1 className="text-3xl font-bold">Category Management</h1>
+              <h1 className="text-3xl font-bold">カテゴリ管理</h1>
               <p className="text-muted-foreground mt-1">
-                Admin only: Manage todo categories
+                管理者専用: Todoカテゴリを管理
               </p>
             </div>
             <Button onClick={() => setIsFormOpen(true)}>
               <Plus className="h-4 w-4 mr-2" />
-              New Category
+              新規カテゴリ
             </Button>
           </div>
 
           <Card>
             <CardHeader>
-              <CardTitle>Categories</CardTitle>
+              <CardTitle>カテゴリ一覧</CardTitle>
               <CardDescription>
-                Manage categories that users can assign to their todos
+                ユーザーがTodoに割り当てるカテゴリを管理します
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -82,14 +82,14 @@ export default function CategoriesPage() {
 
               {error && (
                 <div className="text-center py-12">
-                  <p className="text-destructive">Error loading categories: {error.message}</p>
+                  <p className="text-destructive">カテゴリの読み込みエラー: {error.message}</p>
                 </div>
               )}
 
               {!loading && !error && data?.categories.length === 0 && (
                 <div className="text-center py-12">
                   <p className="text-muted-foreground">
-                    No categories yet. Create your first category to get started!
+                    まだカテゴリがありません。最初のカテゴリを作成しましょう！
                   </p>
                 </div>
               )}
@@ -98,19 +98,19 @@ export default function CategoriesPage() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Name</TableHead>
-                      <TableHead>Description</TableHead>
-                      <TableHead>Created</TableHead>
-                      <TableHead className="text-right">Actions</TableHead>
+                      <TableHead>名前</TableHead>
+                      <TableHead>説明</TableHead>
+                      <TableHead>作成日</TableHead>
+                      <TableHead className="text-right">操作</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {data.categories.map((category: Category) => (
                       <TableRow key={category.id}>
                         <TableCell className="font-medium">{category.name}</TableCell>
-                        <TableCell>{category.description || 'No description'}</TableCell>
+                        <TableCell>{category.description || '説明なし'}</TableCell>
                         <TableCell>
-                          {new Date(category.createdAt).toLocaleDateString()}
+                          {new Date(category.createdAt).toLocaleDateString('ja-JP')}
                         </TableCell>
                         <TableCell className="text-right">
                           <div className="flex justify-end space-x-2">
@@ -120,7 +120,7 @@ export default function CategoriesPage() {
                               onClick={() => handleEdit(category)}
                             >
                               <Edit className="h-4 w-4 mr-1" />
-                              Edit
+                              編集
                             </Button>
                             <Button
                               size="sm"
@@ -128,7 +128,7 @@ export default function CategoriesPage() {
                               onClick={() => handleDelete(category.id)}
                             >
                               <Trash2 className="h-4 w-4 mr-1" />
-                              Delete
+                              削除
                             </Button>
                           </div>
                         </TableCell>

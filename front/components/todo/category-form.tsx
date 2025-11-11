@@ -35,22 +35,22 @@ export function CategoryForm({ isOpen, onClose, category }: CategoryFormProps) {
   const [createCategory, { loading: creating }] = useMutation(CREATE_CATEGORY, {
     refetchQueries: [{ query: GET_CATEGORIES }],
     onCompleted: () => {
-      toast.success('Category created successfully!');
+      toast.success('カテゴリを作成しました！');
       onClose();
     },
     onError: (error) => {
-      toast.error(error.message || 'Failed to create category');
+      toast.error(error.message || 'カテゴリの作成に失敗しました');
     },
   });
 
   const [updateCategory, { loading: updating }] = useMutation(UPDATE_CATEGORY, {
     refetchQueries: [{ query: GET_CATEGORIES }],
     onCompleted: () => {
-      toast.success('Category updated successfully!');
+      toast.success('カテゴリを更新しました！');
       onClose();
     },
     onError: (error) => {
-      toast.error(error.message || 'Failed to update category');
+      toast.error(error.message || 'カテゴリの更新に失敗しました');
     },
   });
 
@@ -58,7 +58,7 @@ export function CategoryForm({ isOpen, onClose, category }: CategoryFormProps) {
     e.preventDefault();
 
     if (!name.trim()) {
-      toast.error('Please enter a category name');
+      toast.error('カテゴリ名を入力してください');
       return;
     }
 
@@ -80,40 +80,40 @@ export function CategoryForm({ isOpen, onClose, category }: CategoryFormProps) {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{category ? 'Edit Category' : 'Create New Category'}</DialogTitle>
+          <DialogTitle>{category ? 'カテゴリを編集' : '新しいカテゴリを作成'}</DialogTitle>
           <DialogDescription>
-            {category ? 'Update category details' : 'Add a new category for organizing todos'}
+            {category ? 'カテゴリの詳細を更新します' : 'Todoを整理するための新しいカテゴリを追加します'}
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
           <div className="space-y-4 py-4">
             <div className="space-y-2">
-              <Label htmlFor="name">Name</Label>
+              <Label htmlFor="name">名前</Label>
               <Input
                 id="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Enter category name"
+                placeholder="カテゴリ名を入力"
                 required
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="description">Description</Label>
+              <Label htmlFor="description">説明</Label>
               <Textarea
                 id="description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                placeholder="Enter description (optional)"
+                placeholder="説明を入力（任意）"
                 rows={3}
               />
             </div>
           </div>
           <DialogFooter>
             <Button type="button" variant="outline" onClick={onClose}>
-              Cancel
+              キャンセル
             </Button>
             <Button type="submit" disabled={creating || updating}>
-              {creating || updating ? 'Saving...' : category ? 'Update' : 'Create'}
+              {creating || updating ? '保存中...' : category ? '更新' : '作成'}
             </Button>
           </DialogFooter>
         </form>

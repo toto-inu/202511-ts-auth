@@ -19,15 +19,15 @@ export function TodoItem({ todo, onEdit }: TodoItemProps) {
   const [removeTodo, { loading }] = useMutation(REMOVE_TODO, {
     refetchQueries: [{ query: GET_TODOS }],
     onCompleted: () => {
-      toast.success('Todo deleted successfully!');
+      toast.success('Todoを削除しました！');
     },
     onError: (error) => {
-      toast.error(error.message || 'Failed to delete todo');
+      toast.error(error.message || 'Todoの削除に失敗しました');
     },
   });
 
   const handleDelete = () => {
-    if (confirm('Are you sure you want to delete this todo?')) {
+    if (confirm('このTodoを削除してもよろしいですか？')) {
       removeTodo({ variables: { id: todo.id } });
     }
   };
@@ -48,11 +48,11 @@ export function TodoItem({ todo, onEdit }: TodoItemProps) {
   const getStatusLabel = (status: TodoStatus) => {
     switch (status) {
       case TodoStatus.COMPLETED:
-        return 'Completed';
+        return '完了';
       case TodoStatus.IN_PROGRESS:
-        return 'In Progress';
+        return '進行中';
       case TodoStatus.PENDING:
-        return 'Pending';
+        return '未着手';
       default:
         return status;
     }
@@ -65,7 +65,7 @@ export function TodoItem({ todo, onEdit }: TodoItemProps) {
           <div className="flex-1">
             <CardTitle className="text-lg">{todo.title}</CardTitle>
             <CardDescription className="mt-1">
-              {todo.description || 'No description'}
+              {todo.description || '説明なし'}
             </CardDescription>
           </div>
           <Badge variant={getStatusColor(todo.status)}>
@@ -76,22 +76,22 @@ export function TodoItem({ todo, onEdit }: TodoItemProps) {
       <CardContent>
         {todo.category && (
           <div className="text-sm text-muted-foreground">
-            Category: <span className="font-medium">{todo.category.name}</span>
+            カテゴリ: <span className="font-medium">{todo.category.name}</span>
           </div>
         )}
       </CardContent>
       <CardFooter className="flex justify-between">
         <div className="text-xs text-muted-foreground">
-          Created: {new Date(todo.createdAt).toLocaleDateString()}
+          作成日: {new Date(todo.createdAt).toLocaleDateString('ja-JP')}
         </div>
         <div className="flex space-x-2">
           <Button size="sm" variant="outline" onClick={() => onEdit(todo)}>
             <Edit className="h-4 w-4 mr-1" />
-            Edit
+            編集
           </Button>
           <Button size="sm" variant="destructive" onClick={handleDelete} disabled={loading}>
             <Trash2 className="h-4 w-4 mr-1" />
-            Delete
+            削除
           </Button>
         </div>
       </CardFooter>
