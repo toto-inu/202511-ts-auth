@@ -96,8 +96,8 @@ yarn prisma generate
 
 ### GraphQL API
 
-Server: `http://localhost:3000`
-GraphQL Playground: `http://localhost:3000/graphql`
+Server: `http://localhost:4001`
+GraphQL Playground: `http://localhost:4001/graphql`
 
 See `api/README.md` for detailed GraphQL query/mutation examples.
 

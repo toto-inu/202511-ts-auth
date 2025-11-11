@@ -50,8 +50,8 @@ yarn prisma migrate dev
 yarn start:dev
 ```
 
-サーバーは `http://localhost:3000` で起動します。
-GraphQL Playground: `http://localhost:3000/graphql`
+サーバーは `http://localhost:4001` で起動します。
+GraphQL Playground: `http://localhost:4001/graphql`
 
 ## データベーススキーマ
 
